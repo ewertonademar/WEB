@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Formulário de Cadastro</title>
+<link href="css/Cadastro.css" rel="stylesheet" type="text/css">
+<link href="css/menu.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js" ></script>
+<script type="text/javascript" src="js/jquery-1.2.6.pack.js"/></script>
+<script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+
+<!-- VALIDAR CPF -->
+<script id="ValidarCPF">
+function validarCPF( cpf ){
+	var filtro = /^\d{3}.\d{3}.\d{3}-\d{2}$/i;
+	
+	if(!filtro.test(cpf))
+	{
+		window.alert("CPF inválido. Tente novamente.");
+		return false;
+	}
+   
+	cpf = remove(cpf, ".");
+	cpf = remove(cpf, "-");
+	
+	if(cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" ||
+		cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" ||
+		cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" ||
+		cpf == "88888888888" || cpf == "99999999999")
+	{
+		window.alert("CPF inválido. Tente novamente.");
+		return false;
+   }
+
+	soma = 0;
+	for(i = 0; i < 9; i++)
+	{
+		soma += parseInt(cpf.charAt(i)) * (10 - i);
+	}
+	
+	resto = 11 - (soma % 11);
+	if(resto == 10 || resto == 11)
+	{
+		resto = 0;
+	}
+	if(resto != parseInt(cpf.charAt(9))){
+		window.alert("CPF inválido. Tente novamente.");
+		return false;
+	}
+	
+	soma = 0;
+	for(i = 0; i < 10; i ++)
+	{
+		soma += parseInt(cpf.charAt(i)) * (11 - i);
+	}
+	resto = 11 - (soma % 11);
+	if(resto == 10 || resto == 11)
+	{
+		resto = 0;
+	}
+	
+	if(resto != parseInt(cpf.charAt(10))){
+		window.alert("CPF inválido. Tente novamente.");
+		return false;
+	}
+	
+	return true;
+ }
+ 
+function remove(str, sub) {
+	i = str.indexOf(sub);
+	r = "";
+	if (i == -1) return str;
+	{
+		r += str.substring(0,i) + remove(str.substring(i + sub.length), sub);
+	}
+	
+	return r;
+}
+
+function mascara(o,f){
+	v_obj=o
+	v_fun=f
+	setTimeout("execmascara()",1)
+}
+
+function execmascara(){
+	v_obj.value=v_fun(v_obj.value)
+}
+
+function cpf_mask(v){
+	v=v.replace(/\D/g,"")                 //Remove tudo o que não é dígito
+	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o terceiro e o quarto dígitos
+	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o setimo e o oitava dígitos
+	v=v.replace(/(\d{3})(\d)/,"$1-$2")   //Coloca ponto entre o decimo primeiro e o decimo segundo dígitos
+	return v
+}
+		
+</script>
+
+<!-- MÁSCARAS -->
+<script id="mascara" type="application/javascript"> 
+$(document).ready(function(){
+	$("#cnpj").mask("99.999.999/9999-99");
+	$("#telefonefixo").mask("99 9999-9999");
+	$("#telefonecelular").mask("99 99999-9999");
+	
+	});
+</script>
+
+<!-- SENHAS IGUAIS  -->   
+<script id="ValidarSenha" type="application/javascript">
+/* function ValidarSenha(){
+    if (document.getElementById("senha").value != document.getElementById("confsenha").value)
+    {
+        window.alert ("Senhas diferentes! Digite novamente.");
+        return false;
+    }
+    return true;
+} */
+</script> 
+
+<!-- DESABILITAR CPF/CNPJ -->
+<script id="desabilitar" type="application/javascript">  
+function desabilitar_cnpj(){  
+	document.getElementById("cnpj").disabled = true
+	document.getElementById("cpf").disabled = false
+	document.getElementById('cnpj').value="";
+	;}//Desabilita CNPJ
+
+function desabilitar_cpf(){  
+	document.getElementById("cpf").disabled = true
+	document.getElementById("cnpj").disabled = false
+	document.getElementById('cpf').value="";
+	;} //Desabilita CPF
+</script>
+
+<!-- VALIDAÇÃO CEP -->
+<script id="cep" type="application/javascript">
+	function consultacep(cep){
+	cep = cep.replace(/\D/g,"")
+	url="http://cep.correiocontrol.com.br/"+cep+".js"
+	s=document.createElement('script')
+	s.setAttribute('charset','utf-8')
+	s.src=url
+	document.querySelector('head').appendChild(s)
+	}
+function correiocontrolcep(valor){
+	if (valor.erro) {
+	alert('CEP Inválido');       
+	return;
+	};
+document.getElementById('logradouro').value=valor.logradouro
+document.getElementById('bairro').value=valor.bairro
+document.getElementById('localidade').value=valor.localidade
+document.getElementById('uf').value=valor.uf
+	}
+</script>
+
+</head>
+<body>
+<!-- MENU/TOPO-->
+<div class="gridContainer clearfix" id="topo">
+<div id='cssmenu'>
+<ul>
+   <li><a href='inicio_mapa.php5'><span>Página Inicial</span></a></li>
+   <li><a href='resumo-pesquisa.php5'><span>Pesquisa</span></a></li>
+   <li><a href='Conheca_pg.html'><span>Conheça a Praia Grande</span></a></li>   
+   <li><a href='Quem_somos.html'><span>Quem somos</span></a></li>   
+   <li id="destaques"><a href='#'><span>Destaques</span></a>
+      <ul>
+         <li class='has-sub'><a href='#'><span>Destaque 1
+         <p></p>
+         <img src="imagens/map.jpg" id="imagem"></span>
+         </a></li>
+         <li class='has-sub'><a href='#'><span>Destaque 2
+         <p></p>
+         <img src="imagens/map.jpg" id="imagem">
+         </span></a></li>
+      </ul>
+   </li>
+   <li><a href='Login.php'><span>Login</span></a></li> 
+</ul>
+</div><!--Fim div Menu -->
+<div id="logo"><img src="imagens/topocerto.jpeg"></div><!-- logo -->
+</div> <!-- topo -->
+
+<form class="form_clientes" action="classes/envia_clientes.php" method="post" enctype="multipart/form-data">
+
+<div id="formulario">
+<form method="post" class="validate" name="cadastro">
+
+<!-- DADOS CADASTRAIS -->
+<fieldset id="cadastro">
+
+<legend id="legenda_cadastro">DADOS CADASTRAIS</legend>
+
+<div id="campos">
+
+<p id="margem"><label for="nomeempresa" id="nomeempresa">Nome da empresa:</label>
+  <input type="text" name="nomeempresa" id="nomeempresa" size="55px" maxlength="40" required></p>
+
+ 
+<label id="radiobutton">CPF</label><input id="radiobutton" name="radio" value="1" type="radio" onClick="javascript:desabilitar_cnpj();" required>  
+<label id="radiobutton">CNPJ</label><input id="radiobutton" name="radio" value="2" type="radio" onClick="javascript:desabilitar_cpf();" required>
+ 
+<p><label for="cpf">CPF:</label> <input name="cpf" type="text" id="cpf" size="55px" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);" required></p>
+
+<p><label for="cnpj">CNPJ:</label> <input name="cnpj" type="text" id="cnpj" size="55px" required></p>
+
+<p><label for="email">E-mail:</label> <input type="email" name="email" id="email" size="55px" maxlength="40" class="email" placeholder="exemplo@servidor.com" required></p>
+
+<p><label for="senha">Senha:</label> <input type="password" name="senha" id="senha" size="55px" maxlength="20" required></p>
+
+<p id="marge"><label for="confsenha" id="confsenha">Confirmar senha:</label> <input type="password" name="confsenha" id="confsenha" size="55px" maxlength="20" placeholder="Repita senha digitada acima"  onBlur="Validarsenha()" required></p>
+
+</div><!-- campos -->
+
+</fieldset>
+
+<!-- ENDEREÇO -->
+<fieldset>
+<legend> ENDEREÇO </legend>
+<div id="campos">
+
+<p><label for="cep">CEP:</label> <input type="text" name="cep" id="cep" maxlength="8" size="55px" onblur="consultacep(this.value)" required></p>
+
+<p><label for="logradouro" id="loglabel">Logradouro:</label> <input type="text" name="logradouro" id="logradouro" size="55px" placeholder="Rua, Av..." required></p>
+
+<p><label for="bairro">Bairro:</label> <input type="text" name="bairro" id="bairro" size="55px" required></p>
+
+<p><label for="localidade">Cidade:</label> <input type="text" name="lodalidade" id="localidade" size="55px" required></p>
+
+<p><label for="uf">Estado:</label> <input type="text" name="uf" id="uf" size="55px" required></p>
+
+<p><label for="numero">Número:</label> <input type="text" name="numero" id="numero" size="55px" maxlength="6" required></p> 
+
+<p id="editar"><label for="complemento" id="complemento">Complemento:</label> <input type="text" name="complemento" id="complemento" size="55px" maxlength="10" placeholder="Apto"></p>
+
+</div> <!-- campos -->
+</fieldset>
+
+<!-- CONTATOS -->
+<fieldset>
+<legend>CONTATO</legend>
+<div id="campos">
+<p id="margem"><label for="cd_telefonefixo" id="telfixo">Telefone fixo:</label> <input type="text" name="telefonefixo" id="telefonefixo" size="55px" placeholder="DDD + número" required>
+
+<p id="margem"><label for="cd_telefonecelular" id="telcel">Telefone celular:</label> <input type="text" name="telefonecelular" id="telefonecelular" size="55px" placeholder="DDD + número" required>
+</div>
+</fieldset>
+
+<p><button class="submit" onClick="ValidarSenha();">Enviar</button></p>
+<!--<p><input type="submit" value="Enviar" id="botao_enviar" onClick="validarSenha()"></p> -->
+</form>
+</div> <!-- formulario -->
+</body>
+</html>
