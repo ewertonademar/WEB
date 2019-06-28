@@ -1,0 +1,361 @@
+@charset "utf-8";
+
+/*Deixa colado, sem espaços brancos*/
+*{
+	margin:0;
+	padding:0;
+}
+
+
+*{
+	 box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+
+/*configurando div site*/
+#site{
+    /* Definimos a largura da página */
+    width:100%;
+    /* Definirmos a altura da página*/
+    height:100%;
+    /* Aqui definiremos a posição que a página ocupará na tela, nesse caso estamos definindo que fique centralizado na tela*/
+    /*top : posição de cima */
+    margin-top:-25;
+    /* left: posição de esquerda*/
+    margin-left:auto;
+    /* bottom : posição de baixo */
+    margin-bottom:0;
+    /* right : posição de direita */
+    margin-right:auto;
+    /* Aqui definiremos a cor de fundo da página */
+    background-color:#666;
+	/*Posição da Div principal*/ 
+	position: absolute;
+	width: 100%;
+}
+
+/*configurando o cabeçalho1*/
+#header1{
+    /*Novamente definimos a largura da div*/
+    width:100%;
+    /* altura da div */
+    height:41px;
+    /* Cor de fundo da div */
+    background-color:#09F;
+    }
+	
+/*configurando o cabeçalho2*/
+#header2{
+    /*Novamente definimos a largura da div*/
+    width:100%;
+    /* altura da div */
+    height:100px;
+    /* Cor de fundo da div */
+    background-color:#FFF;
+	/*Sombra*/
+	box-shadow:1px 1px 5px #000;
+    }
+
+/*configurando o conteúdo*/	
+#conteudo{
+    /*Novamente definimos a largura da div*/
+    width:100%;
+    /* altura da div */
+    height:945px;
+    /* Cor de fundo da div */
+    background-color:#D1CEF1;
+	/*Sombra*/
+	box-shadow:1px 1px 5px #000; 
+}
+
+.clear {
+ clear: both;
+ }
+	
+/*começo do conteudo da esquerda*/
+#conteudo1{
+float: center;
+background-color:#FFF;
+margin-left: 80px;
+padding:10px;
+width:60%;
+height:900px;
+border:2px solid #FFF;
+/*Sombra*/
+box-shadow:1px 1px 8px #000;
+/*serve pra tirar do topo*/
+margin-top: 26px;
+position: absolute;
+/*centralização das informações*/
+left: 14%;
+}
+
+
+/*começo da div imagem*/
+#imagem{
+float: center;
+background-color:#FFF;
+padding:10px;
+width:90%;
+height: 170px;
+border:2px solid #FFF;
+}
+
+
+/*configurando o rodapé*/ 
+#footer{
+    /*Novamente definimos a largura da div*/
+    width:100%;
+    /* altura da div */
+    height:25px;
+    /* Cor de fundo da div */
+    background-color:#FFF;
+	/*Sombra*/
+	box-shadow:1px 1px 5px #000;
+    }
+
+
+/*Formatação do formulário do quadrado esquerdo*/
+
+ 
+fieldset {
+    border: 0;
+}
+ 
+body, input, select, textarea, button {
+    font-family: sans-serif;
+    font-size: 1em;
+}
+ 
+.grupo:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+	color: #666;
+}
+ 
+.campo {
+    margin-bottom: 1em;
+}
+ 
+.campo label {
+    margin-bottom: 0.2em;
+    color: #666;
+    display: block;
+}
+ 
+ 
+fieldset.grupo .campo {
+    float:  left;
+    margin-right: 1em;
+}
+ 
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="url"],
+.campo input[type="tel"],
+.campo select,
+.campo textarea {
+    padding: 0.2em;
+    border: 1px solid #CCC;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    display: block;
+}
+ 
+.campo select option {
+    padding-right: 1em;
+}
+ 
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+    background: #FFC;
+}
+ 
+.campo label.checkbox {
+    color: #000;
+    display: inline-block;
+    margin-right: 1em;
+}
+
+/*Botão*/
+ 
+.but {
+display: inline-block;
+background-color: #ccc;
+color: #444;
+padding: 10px 20px;
+text-decoration: none;
+box-sizing: border-box;
+font-family: Helvetica, Arial, sans-serif;
+font-size: 14px;
+border: 0px;
+color: #fff;
+background-color: #0068B4;
+}
+
+.but:hover {
+background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+cursor: pointer;
+}
+
+/*
+.botao {
+    font-size: 1.5em;
+    background: #F90;
+    border: 0;
+    margin-bottom: 1em;
+    color: #FFF;
+    padding: 0.2em 0.6em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+ 
+.botao:hover {
+    background: #FB0;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: none;
+}
+ 
+.botao, select, label.checkbox {
+    cursor: pointer;
+}
+
+
+/*Começo da formatação do logo*/
+logo1{
+	position: absolute;
+	top: 14px;
+	left: 48px;
+	z-index: 5;
+	width: 388px;
+	height: 124px;
+}
+
+logo2{
+	position: absolute;
+	top: 20px;
+	right: 500px;
+	z-index: 5;
+	width: 327px;
+	height: 99px;
+}
+
+
+/*COMEÇO DA FORMATAÇÃO DO MENU*/
+*body{
+	float:right; >> menu alinhado à direita
+} 
+
+#cssmenu {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: auto;
+
+}
+
+#cssmenu ul,
+#cssmenu li { /* sem marcadores de lista */
+  list-style: none;  
+  margin: 0;   
+  padding: 0;
+}
+
+#cssmenu ul {
+  position: relative;
+  z-index: 597;
+  top: 0px; /*altura com o topo*/
+}
+
+#cssmenu ul li { 
+  float: right; /* menu vertical*/
+  min-height: 1px;
+  vertical-align: middle;
+}
+
+
+#cssmenu a { 
+  display: block !important;
+  text-decoration: none; /* sem sublinhado ou outra formatacao */
+}
+
+/* Custom CSS Styles */
+#cssmenu {
+  font-family: Verdana, Tahoma;
+  font-size: 13px;
+}
+
+#cssmenu ul {
+  text-transform: uppercase;
+}
+
+#cssmenu ul ul {
+  text-transform: none;
+}
+
+
+
+#cssmenu ul ul li:first-child > a {
+  border-top: 1px solid #fff; /* linha em cima do submenu */
+}
+
+#cssmenu ul ul li:hover > a {
+  background: #fff; /* cor do fundo do submenu selecionado */
+  color: #000; /* cor da letra do submenu selecionado */
+}
+
+#cssmenu ul li:hover > a,
+#cssmenu ul li.active > a { /* destaque azul - deixar ou não */
+  background: #FFF;
+  color: #09F;
+}
+
+
+#cssmenu a {
+  background: #09F; /* cor do menu */
+  color: #FFF; /* cor das letras sem seleção */
+  padding: 0 17px; /* espaçamento do menu */
+}
+
+#cssmenu > ul > li > a {
+  line-height: 40px; /* altura do menu*/
+  font-size: 15px; /* tamanho da fonte */
+}
+
+
+/*FIM DA FORMATAÇÃO DO MENU*/
+
+
+
+/*Formatação do input required
+input:required:invalid, input:focus:invalid {
+  background: #F33;
+}
+input:required:valid {
+  background: #6F9;
+}
+*/
+
+
+
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*lenght=comprimento
+width=largura
+height=altura 
+background: cor da sidebar
+color: cor da fonte
+width: tamanho da sidebar
+font-size: tamanho da fonte
+font-family: tipo de fonte
+margin-top: espaço do topo (quanto maior o valor mais em baixo fica)
+margin-left: espaço da esquerda (quanto maior o valor mais perto da direita fica)
+padding: espaço entre a borda da sidebar
+position: fixed e absolute (fixo e móvel)
+margin-bottom: espaço de baixo entre as outras caixas (box)
+*/

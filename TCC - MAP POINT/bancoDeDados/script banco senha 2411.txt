@@ -1,0 +1,105 @@
+create database db_mappointsenha;
+use db_mappointsenha;
+
+-- TABELA UF
+create table tb_uf
+(cd_uf int not null auto_increment,
+sg_uf char (2) not null,
+constraint pk_uf
+primary key (cd_uf));
+
+-- TABELA CIDADE
+create table tb_cidade
+(cd_cidade int not null auto_increment,
+nm_cidade varchar (45) not null,
+cd_uf int,
+constraint pk_cidade
+primary key (cd_cidade),
+
+constraint fk_cidade_uf
+foreign key (cd_uf)
+references tb_uf(cd_uf));
+
+-- TABELA BAIRRO
+create table tb_bairro
+(cd_bairro int not null auto_increment,
+nm_bairro varchar (45) not null,
+cd_cidade int,
+constraint pk_bairro
+primary key (cd_bairro),
+
+constraint fk_bairro_cidade
+foreign key (cd_cidade)
+references tb_cidade(cd_cidade));
+
+-- TABELA ENDEREÇO
+create table tb_endereco
+(cd_endereco int not null auto_increment,
+nm_endereco varchar (70) not null,
+qt_numero varchar (8),
+cd_cep char (8) not null,
+nm_complemento varchar (100),
+cd_bairro int,
+constraint pk_endereco
+primary key (cd_endereco),
+
+constraint fk_endereco_bairro
+foreign key (cd_bairro)
+references tb_bairro(cd_bairro));
+
+-- TABELA EMPRESA
+create table tb_empresa
+(cd_empresa INT NOT NULL auto_increment,
+nm_empresa varchar (50) not null,
+cd_cpf char (14),
+cd_cnpj char (18),
+ds_email varchar (60) not null,
+ds_senha varchar (20) not null,
+cd_nivel int not null,
+cd_status int not null,
+cd_endereco int,
+constraint pk_empresa
+primary key (cd_empresa),
+
+constraint fk_empresa_endereco
+foreign key (cd_endereco)
+references tb_endereco(cd_endereco));
+
+-- TABELA CONTATO
+create table tb_contato
+(cd_contato int not null auto_increment,
+cd_telefonefixo varchar (12) not null,
+cd_telefonecelular varchar (13) not null,
+cd_empresa int,
+constraint pk_contato
+primary key (cd_contato),
+
+constraint fk_contato_empresa
+foreign key (cd_empresa)
+references tb_empresa(cd_empresa));
+
+-- TABELA POSTAGEM
+create table tb_postagem
+(cd_postagem int not null auto_increment,
+nm_postagem varchar(80) not null,
+dt_inicio date not null,
+dt_fim date,
+vl_postagem decimal (5,2) not null,
+nm_classificacao varchar(10) not null,
+nm_categoria enum ('Bar/Restaurante', 'Evento Cultural', 'Evento Esportivo', 'Casa Noturna', 'Show') not null,
+nm_imagem varchar (255) not null,
+ds_postagem longtext not null,
+ds_geocalizacao longtext not null,
+cd_empresa int,
+cd_endereco int,
+
+constraint pk_postagem
+primary key (cd_postagem),
+
+constraint fk_postagem_empresa
+foreign key (cd_empresa)
+references tb_empresa(cd_empresa),
+
+constraint fk_postagem_endereco
+foreign key (cd_endereco)
+references tb_endereco(cd_endereco));

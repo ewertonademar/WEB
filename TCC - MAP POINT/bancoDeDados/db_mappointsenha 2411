@@ -1,0 +1,243 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.6.20
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema db_mappointsenha
+--
+
+CREATE DATABASE IF NOT EXISTS db_mappointsenha;
+USE db_mappointsenha;
+
+--
+-- Definition of table `tb_bairro`
+--
+
+DROP TABLE IF EXISTS `tb_bairro`;
+CREATE TABLE `tb_bairro` (
+  `cd_bairro` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_bairro` varchar(45) NOT NULL,
+  `cd_cidade` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_bairro`),
+  KEY `fk_bairro_cidade` (`cd_cidade`),
+  CONSTRAINT `fk_bairro_cidade` FOREIGN KEY (`cd_cidade`) REFERENCES `tb_cidade` (`cd_cidade`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_bairro`
+--
+
+/*!40000 ALTER TABLE `tb_bairro` DISABLE KEYS */;
+INSERT INTO `tb_bairro` (`cd_bairro`,`nm_bairro`,`cd_cidade`) VALUES 
+ (16,'zero',1),
+ (17,'um',1),
+ (18,'dois',1),
+ (19,'thais',1),
+ (20,'quatro',1),
+ (21,'cinco',1),
+ (22,'seis',1);
+/*!40000 ALTER TABLE `tb_bairro` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_cidade`
+--
+
+DROP TABLE IF EXISTS `tb_cidade`;
+CREATE TABLE `tb_cidade` (
+  `cd_cidade` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_cidade` varchar(45) NOT NULL,
+  `cd_uf` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_cidade`),
+  KEY `fk_cidade_uf` (`cd_uf`),
+  CONSTRAINT `fk_cidade_uf` FOREIGN KEY (`cd_uf`) REFERENCES `tb_uf` (`cd_uf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_cidade`
+--
+
+/*!40000 ALTER TABLE `tb_cidade` DISABLE KEYS */;
+INSERT INTO `tb_cidade` (`cd_cidade`,`nm_cidade`,`cd_uf`) VALUES 
+ (1,'Praia Grande',1);
+/*!40000 ALTER TABLE `tb_cidade` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_contato`
+--
+
+DROP TABLE IF EXISTS `tb_contato`;
+CREATE TABLE `tb_contato` (
+  `cd_contato` int(11) NOT NULL AUTO_INCREMENT,
+  `cd_telefonefixo` varchar(12) NOT NULL,
+  `cd_telefonecelular` varchar(13) NOT NULL,
+  `cd_empresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_contato`),
+  KEY `fk_contato_empresa` (`cd_empresa`),
+  CONSTRAINT `fk_contato_empresa` FOREIGN KEY (`cd_empresa`) REFERENCES `tb_empresa` (`cd_empresa`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_contato`
+--
+
+/*!40000 ALTER TABLE `tb_contato` DISABLE KEYS */;
+INSERT INTO `tb_contato` (`cd_contato`,`cd_telefonefixo`,`cd_telefonecelular`,`cd_empresa`) VALUES 
+ (1,'44 4444-4444','44 44444-4444',1),
+ (2,'55 5555-5555','55 55555-5555',4),
+ (3,'66 6666-6666','66 66666-6666',5);
+/*!40000 ALTER TABLE `tb_contato` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_empresa`
+--
+
+DROP TABLE IF EXISTS `tb_empresa`;
+CREATE TABLE `tb_empresa` (
+  `cd_empresa` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_empresa` varchar(50) NOT NULL,
+  `cd_cpf` char(14) DEFAULT NULL,
+  `cd_cnpj` char(18) DEFAULT NULL,
+  `ds_email` varchar(60) NOT NULL,
+  `ds_senha` varchar(20) NOT NULL,
+  `cd_nivel` int(11) NOT NULL,
+  `cd_status` int(11) NOT NULL,
+  `cd_endereco` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_empresa`),
+  KEY `fk_empresa_endereco` (`cd_endereco`),
+  CONSTRAINT `fk_empresa_endereco` FOREIGN KEY (`cd_endereco`) REFERENCES `tb_endereco` (`cd_endereco`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_empresa`
+--
+
+/*!40000 ALTER TABLE `tb_empresa` DISABLE KEYS */;
+INSERT INTO `tb_empresa` (`cd_empresa`,`nm_empresa`,`cd_cpf`,`cd_cnpj`,`ds_email`,`ds_senha`,`cd_nivel`,`cd_status`,`cd_endereco`) VALUES 
+ (1,'Thais','111.111.111-11','','nthaisd@hotmail.com','1234',1,0,20),
+ (2,'Thais','111.111.111-11','','nthaisd@hotmail.com','1234',1,0,26),
+ (3,'SoftTech4','444.444.444-44','','soft-tech@hotmail.com','tcc',1,0,27),
+ (4,'SoftTech5','555.555.555-55','','soft-tech5@hotmail.com','tcc',1,0,28),
+ (5,'SoftTech6','666.666.666-66','','soft-tech6@hotmail.com','tcc',1,0,29);
+/*!40000 ALTER TABLE `tb_empresa` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_endereco`
+--
+
+DROP TABLE IF EXISTS `tb_endereco`;
+CREATE TABLE `tb_endereco` (
+  `cd_endereco` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_endereco` varchar(70) NOT NULL,
+  `qt_numero` varchar(8) DEFAULT NULL,
+  `cd_cep` char(8) NOT NULL,
+  `nm_complemento` varchar(100) DEFAULT NULL,
+  `cd_bairro` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_endereco`),
+  KEY `fk_endereco_bairro` (`cd_bairro`),
+  CONSTRAINT `fk_endereco_bairro` FOREIGN KEY (`cd_bairro`) REFERENCES `tb_bairro` (`cd_bairro`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_endereco`
+--
+
+/*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
+INSERT INTO `tb_endereco` (`cd_endereco`,`nm_endereco`,`qt_numero`,`cd_cep`,`nm_complemento`,`cd_bairro`) VALUES 
+ (18,'11111111','111','11111111','',17),
+ (19,'22222222','222','22222222','',18),
+ (20,'thais','000','00000000','',19),
+ (21,'thais','000','00000000','',19),
+ (22,'thais','000','00000000','',19),
+ (23,'thais','000','00000000','',19),
+ (24,'thais','000','00000000','',19),
+ (25,'thais','000','00000000','',19),
+ (26,'thais','000','33333333','',19),
+ (27,'4444','444','44444444','',20),
+ (28,'55555555','555','55555555','',21),
+ (29,'66666666','666','66666666','',22),
+ (30,'','11111','',NULL,17),
+ (31,'','11111','',NULL,17),
+ (32,'','11111','',NULL,17),
+ (33,'um','11111','11111111',NULL,17);
+/*!40000 ALTER TABLE `tb_endereco` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_postagem`
+--
+
+DROP TABLE IF EXISTS `tb_postagem`;
+CREATE TABLE `tb_postagem` (
+  `cd_postagem` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_postagem` varchar(80) NOT NULL,
+  `dt_inicio` date NOT NULL,
+  `dt_fim` date DEFAULT NULL,
+  `vl_postagem` decimal(5,2) NOT NULL,
+  `nm_classificacao` varchar(10) NOT NULL,
+  `nm_categoria` enum('Bar/Restaurante','Evento Cultural','Evento Esportivo','Casa Noturna','Show') NOT NULL,
+  `nm_imagem` varchar(255) NOT NULL,
+  `ds_postagem` longtext NOT NULL,
+  `ds_geocalizacao` longtext NOT NULL,
+  `cd_empresa` int(11) DEFAULT NULL,
+  `cd_endereco` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_postagem`),
+  KEY `fk_postagem_empresa` (`cd_empresa`),
+  KEY `fk_postagem_endereco` (`cd_endereco`),
+  CONSTRAINT `fk_postagem_empresa` FOREIGN KEY (`cd_empresa`) REFERENCES `tb_empresa` (`cd_empresa`),
+  CONSTRAINT `fk_postagem_endereco` FOREIGN KEY (`cd_endereco`) REFERENCES `tb_endereco` (`cd_endereco`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_postagem`
+--
+
+/*!40000 ALTER TABLE `tb_postagem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_postagem` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tb_uf`
+--
+
+DROP TABLE IF EXISTS `tb_uf`;
+CREATE TABLE `tb_uf` (
+  `cd_uf` int(11) NOT NULL AUTO_INCREMENT,
+  `sg_uf` char(2) NOT NULL,
+  PRIMARY KEY (`cd_uf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_uf`
+--
+
+/*!40000 ALTER TABLE `tb_uf` DISABLE KEYS */;
+INSERT INTO `tb_uf` (`cd_uf`,`sg_uf`) VALUES 
+ (1,'SP');
+/*!40000 ALTER TABLE `tb_uf` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
